@@ -1,0 +1,54 @@
+import java.util.Scanner;
+
+public class Calculadora {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double num1, num2;
+        String operacion;
+        boolean continuar = true;
+        
+        while (continuar) {
+            try {
+                System.out.print("Ingrese el primer número: ");
+                num1 = Double.parseDouble(scanner.nextLine());
+                
+                System.out.print("Ingrese el segundo número: ");
+                num2 = Double.parseDouble(scanner.nextLine());
+                
+                System.out.print("Ingrese la operación (+, -, *, /): ");
+                operacion = scanner.nextLine();
+                
+                switch (operacion) {
+                    case "+":
+                        System.out.println("El resultado es: " + (num1 + num2));
+                        break;
+                    case "-":
+                        System.out.println("El resultado es: " + (num1 - num2));
+                        break;
+                    case "*":
+                        System.out.println("El resultado es: " + (num1 * num2));
+                        break;
+                    case "/":
+                        if (num2 != 0) {
+                            System.out.println("El resultado es: " + (num1 / num2));
+                        } else {
+                            System.out.println("Error: División por cero.");
+                        }
+                        break;
+                    default:
+                        System.out.println("Operación no válida.");
+                }
+                
+                System.out.print("¿Desea realizar otra operación? (S/N): ");
+                operacion = scanner.nextLine();
+                if (!operacion.toUpperCase().equals("S")) {
+                    continuar = false;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Por favor, ingrese un número válido.");
+            }
+        }
+        
+        scanner.close();
+    }
+}
