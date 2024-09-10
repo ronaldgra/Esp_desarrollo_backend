@@ -1,0 +1,31 @@
+# Instalar y cargar paquetes necesarios
+install.packages(c("rugarch", "rmgarch"))
+library(rugarch)
+library(rmgarch)
+
+# Generar datos de ejemplo
+set.seed(123)
+n <- 1000
+returns <- cbind(rnorm(n), rnorm(n))
+colnames(returns) <- c("Asset1", "Asset2")
+
+# Especificar el modelo BEKK
+spec <- ugarchspec(mean.model = list(armaOrder = c(1,1)), variance.model = list(model = "sGARCH", garchOrder = c(1,1)))
+spec.bekk <- multispec(replicate(2, spec))
+spec.bekk <- dccspec(uspec = spec.bekk, dccOrder = c(1,1), distribution = "mvnorm")
+
+# Estimar el modelo BEKK
+fit.bekk <- dccfit(spec.bekk, data = returns)
+
+# Resumen del modelo
+show(fit.bekk)
+
+# Extraer la matriz de covarianza condicional
+cov_matrix <- rcov(fit.bekk)
+
+# Graficar las correlaciones condicionales
+plot(fit.bekk, which = 2)
+
+# Pronóstico
+forecast_bekk <- dccforecast(fit.bekk, n.ahead = 10)
+plot(forecast_bekk, which = 1)
