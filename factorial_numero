@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class FactorialRecursivo {
+
+    // Función recursiva para calcular el factorial
+    public static int factorial(int n) {
+        if (n == 0 || n == 1) {
+            return 1;  // Caso base
+        } else {
+            return n * factorial(n - 1);  // Llamada recursiva
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Solicitar al usuario que ingrese un número
+        System.out.print("Ingresa un número: ");
+        int numero = scanner.nextInt();
+
+        // Calcular el factorial y mostrar el resultado
+        int resultado = factorial(numero);
+        System.out.println("El factorial de " + numero + " es: " + resultado);
+        
+        scanner.close();
+    }
+}
