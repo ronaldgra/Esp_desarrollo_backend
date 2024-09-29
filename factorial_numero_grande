@@ -1,0 +1,31 @@
+//Factorial de numeros enteros grandes con recursividad
+
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class FactorialRecursivo {
+
+    // Función recursiva para calcular el factorial usando BigInteger
+    public static BigInteger factorial(BigInteger n) {
+        if (n.equals(BigInteger.ZERO) || n.equals(BigInteger.ONE)) {
+            return BigInteger.ONE;  // Caso base
+        } else {
+            return n.multiply(factorial(n.subtract(BigInteger.ONE)));  // Llamada recursiva
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Solicitar al usuario que ingrese un número
+        System.out.print("Ingresa un número: ");
+        int numero = scanner.nextInt();
+        BigInteger bigNumero = BigInteger.valueOf(numero);
+
+        // Calcular el factorial y mostrar el resultado
+        BigInteger resultado = factorial(bigNumero);
+        System.out.println("El factorial de " + numero + " es: " + resultado);
+        
+        scanner.close();
+    }
+}
