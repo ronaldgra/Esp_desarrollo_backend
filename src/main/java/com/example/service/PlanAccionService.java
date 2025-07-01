@@ -2,7 +2,7 @@ package com.example.service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
@@ -19,10 +19,10 @@ public class PlanAccionService {
     private final PlanAccionRepository repository;
 
     public List<PlanAccion> getPlanesVencidos(LocalDate hoy) {
-        return repository.findAll().stream()
-                .filter(p -> p.getFechaVencimiento().isBefore(hoy))
-                .filter(p -> p.getEstado() != Estado.CERRADO)
-                .collect(Collectors.toList());
+        List<PlanAccion> resultado = new ArrayList<>();
+        resultado.addAll(repository.findByEstadoAndFechaVencimientoBefore(Estado.ABIERTO, hoy));
+        resultado.addAll(repository.findByEstadoAndFechaVencimientoBefore(Estado.EN_PROGRESO, hoy));
+        return resultado;
     }
 
     public List<PlanAccion> getPlanesPorVencer(int dias, LocalDate hoy) {
@@ -31,7 +31,7 @@ public class PlanAccionService {
                 .filter(p -> !p.getFechaVencimiento().isBefore(hoy))
                 .filter(p -> !p.getFechaVencimiento().isAfter(limite))
                 .filter(p -> p.getEstado() != Estado.CERRADO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public void guardar(PlanAccion plan) {
