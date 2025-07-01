@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=planes_accion
+    username: sa
+    password: TuPasswordSegura1!
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+  mail:
+    host: smtp.office365.com
+    port: 587
+    username: tu-correo@empresa.com
+    password: "****"
+    properties.mail.smtp.auth: true
+    properties.mail.smtp.starttls.enable: true
