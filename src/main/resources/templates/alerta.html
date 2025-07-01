@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Alertas de Planes de Acción</title>
+    <style>
+        .red { background-color: #ffcccc; }
+        .orange { background-color: #ffe5cc; }
+        .green { background-color: #ccffcc; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+    </style>
+</head>
+<body>
+<h1>Planes de Acción</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Título</th>
+        <th>Fecha Vencimiento</th>
+        <th>Prioridad</th>
+        <th>Estado</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="plan : ${planes}"
+        th:with="days=${T(java.time.temporal.ChronoUnit).DAYS.between(T(java.time.LocalDate).now(), plan.fechaVencimiento)}"
+        th:class="${days <= 15 ? 'red' : (days <= 30 ? 'orange' : 'green')}">
+        <td th:text="${plan.titulo}">Título</td>
+        <td th:text="${plan.fechaVencimiento}">Fecha</td>
+        <td th:text="${plan.prioridad}">Prioridad</td>
+        <td th:text="${plan.estado}">Estado</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
